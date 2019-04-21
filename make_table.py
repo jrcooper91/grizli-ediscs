@@ -22,8 +22,8 @@ for file in os.listdir(directory):
          z = fit_hdu[0].header['REDSHIFT']
          Ha = fit_hdu[2].header['FLUX_004']
          Ha_err = fit_hdu[2].header['ERR_004']
-         print(id,ra,dec,Ha,Ha_err)
-         my_list=id,ra,dec,Ha,Ha_err
+         print(id,ra,dec,z,Ha,Ha_err)
+         my_list=id,ra,dec,z,Ha,Ha_err
          with open('j130132m1142txt', 'a+') as f:
              for item in my_list:
                  f.write("%s\n" % item)
