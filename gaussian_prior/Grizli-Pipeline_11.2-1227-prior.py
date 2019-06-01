@@ -123,7 +123,7 @@ HOME_PATH = os.getcwd()
 print('HOME_PATH = ', HOME_PATH)
 
 "CHANGE FILE DIRECTORY HERE"
-root = 'j113812m1134'
+root = 'j122816m1132'
 IS_PARALLEL = False # Set to True for parallel programs like WISPS
 
 if False:
@@ -265,7 +265,7 @@ print('')
 
 
 # Show the alignment w.r.t the external NOAO Source Catalog (NSC)
-Image(filename = "./cl1138-11.0-c1b-05-122.0-f105w_wcs.png") 
+#Image(filename = "./cl1138-11.0-c1b-05-122.0-f105w_wcs.png") 
 
 
 # In[22]:
@@ -273,7 +273,7 @@ Image(filename = "./cl1138-11.0-c1b-05-122.0-f105w_wcs.png")
 
 # Show the alignment of one HST visit to another, note tight 
 # plot range compared to previous
-Image(filename = "./cl1138-11.0-c1b-05-122.0-g102_column.png") 
+#Image(filename = "./cl1138-11.0-c1b-05-122.0-g102_column.png") 
 
 
 # In[23]:
@@ -320,8 +320,8 @@ if False: # Don't run
 # In[25]:
 
 
-from IPython.display import Image
-Image(filename = "./cl1138-11.0-c1b-05-122.0-g102_column.png", width=600, height=600)
+#from IPython.display import Image
+#Image(filename = "./cl1138-11.0-c1b-05-122.0-g102_column.png", width=600, height=600)
 
 
 # ### Fine alignment to GAIA DR2 ###
@@ -531,7 +531,7 @@ else:
 
 
 ## USE THIS ONE
-h = open('/data2/jrcooper/notebooks/reduction/EDisCS/gprior/j113812m1134s.txt', 'r')
+h = open('/data2/jrcooper/notebooks/reduction/EDisCS/gprior/j122816m1132s.txt', 'r')
 lines = h.readlines()[1:]
 h.close()   
 z_LDP       = []  
