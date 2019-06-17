@@ -13,7 +13,7 @@ import matplotlib.lines as mlines
 
 def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.figure(figsize=(18, 16), dpi= 80, facecolor='w', edgecolor='k')
-    f = open('/data2/jrcooper/notebooks/reduction/EDisCS/Ha_catalogs/gaussian_prior/c-1301-gprior.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1301_c_sn.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -29,15 +29,17 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     for line in lines: 
         a = line.split()
         cf_Ha.append(float(a[4]))
-        crf_VJ.append(float(a[6]))
-        crf_UV.append(float(a[7]))
+        crf_VJ.append(float(a[7]))
+        crf_UV.append(float(a[6]))
         crf_m.append(float(a[8]))
         cz.append(float(a[3]))
         
     cf_Ha = np.array(cf_Ha)
     cf_Ha_log = np.log10(cf_Ha)
     crf_VJ = np.array(crf_VJ)
+    crf_VJ = crf_VJ - 0.155
     crf_UV = np.array(crf_UV)
+    crf_UV = crf_UV - 0.306
     crf_m  = np.array(crf_m)
     cz     = np.array(cz)
     cD_l_mpc = np.array(cosmo.luminosity_distance(cz))
@@ -46,7 +48,7 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     cSFR = clogLHa - 41.27   
 
 
-    f = open('/data2/jrcooper/notebooks/reduction/EDisCS/Ha_catalogs/gaussian_prior/g-1301-gprior.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1301_g_sn.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -62,15 +64,17 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     for line in lines: 
         a = line.split()
         gf_Ha.append(float(a[4]))
-        grf_VJ.append(float(a[6]))
-        grf_UV.append(float(a[7]))
+        grf_VJ.append(float(a[7]))
+        grf_UV.append(float(a[6]))
         grf_m.append(float(a[8]))
         gz.append(float(a[3]))
         
     gf_Ha = np.array(gf_Ha)
     gf_Ha_log = np.log10(gf_Ha)
     grf_VJ = np.array(grf_VJ)
+    grf_VJ = grf_VJ - 0.155
     grf_UV = np.array(grf_UV)
+    grf_UV = grf_UV - 0.306
     grf_m  = np.array(grf_m)
     gz     = np.array(gz)
     gD_l_mpc = np.array(cosmo.luminosity_distance(gz))
@@ -85,7 +89,7 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     y2 = [1.3,2]
     y3 = [2,5]
 
-    f = open('/data2/jrcooper/notebooks/reduction/EDisCS/Ha_catalogs/gaussian_prior/1301_LDP.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/WFI_catalogs/1301.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -97,17 +101,21 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     #pull array column 
     for line in lines: 
         a = line.split()
-        LDP_UV.append(float(a[3]))
-        LDP_VJ.append(float(a[2]))
+        LDP_UV.append(float(a[5]))
+        LDP_VJ.append(float(a[6]))
         
         
     LDP_UV = np.array(LDP_UV)
+    LDP_UV= LDP_UV-0.306
     LDP_VJ = np.array(LDP_VJ)
+    LDP_VJ = LDP_VJ-0.155
+    
 
     
     plt.subplot(3,2,1)
-    plt.hist2d(LDP_VJ-0.155, LDP_UV-0.306, bins=(150, 150), cmap=plt.cm.Greys)
-    plt.scatter(crf_VJ[np.where(np.logical_and(cz>0.4628,cz<0.5028))]-0.155,crf_UV[np.where(np.logical_and(cz>0.4628,cz<0.5028))]-0.306,c=cSFR[np.where(np.logical_and(cz>0.4628,cz<0.5028))],s=100)
+    #plt.hist2d(LDP_VJ, LDP_UV, bins=(150, 150), cmap=plt.cm.Greys)
+    plt.scatter(LDP_VJ, LDP_UV, color = 'grey', alpha = 0.3)
+    plt.scatter(crf_VJ[np.where(np.logical_and(cz>0.4628,cz<0.5028))],crf_UV[np.where(np.logical_and(cz>0.4628,cz<0.5028))],c=cSFR[np.where(np.logical_and(cz>0.4628,cz<0.5028))],s=100)
     cbar = plt.colorbar()
     cbar.set_label("log(SFR)")
     
@@ -123,15 +131,16 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.ylim(0,3)
     
     plt.subplot(3,2,2)
-    plt.hist2d(LDP_VJ-0.155, LDP_UV-0.306, bins=(150, 150), cmap=plt.cm.Greys)
+    #plt.hist2d(LDP_VJ, LDP_UV, bins=(150, 150), cmap=plt.cm.Greys)
+    plt.scatter(LDP_VJ, LDP_UV, color = 'grey', alpha = 0.3)
     #plt.scatter(rf_VJ[np.where(np.logical_and(z<0.4628,z>0.5028))],rf_UV[np.where(np.logical_and(z<0.4628,z>0.5028))],c=SFR[np.where(np.logical_and(z<0.4628,z>0.5028))])
-    plt.scatter(crf_VJ[np.where(cz<0.4628)]-0.155,crf_UV[np.where(cz<0.4628)]-0.306,c=cSFR[np.where(cz<0.4628)],s=100)
-    plt.scatter(crf_VJ[np.where(cz>0.5028)]-0.155,crf_UV[np.where(cz>0.5028)]-0.306,c=cSFR[np.where(cz>0.5028)],s=100)
-    plt.scatter(grf_VJ[np.where(gz<0.4628)]-0.155,grf_UV[np.where(gz<0.4628)]-0.306,c=gSFR[np.where(gz<0.4628)],s=100)
-    plt.scatter(grf_VJ[np.where(gz>0.5028)]-0.155,grf_UV[np.where(gz>0.5028)]-0.306,c=gSFR[np.where(gz>0.5028)],s=100)
+    plt.scatter(crf_VJ[np.where(cz<0.4628)],crf_UV[np.where(cz<0.4628)],c=cSFR[np.where(cz<0.4628)],s=100)
+    plt.scatter(crf_VJ[np.where(cz>0.5028)],crf_UV[np.where(cz>0.5028)],c=cSFR[np.where(cz>0.5028)],s=100)
+    plt.scatter(grf_VJ[np.where(gz<0.4628)],grf_UV[np.where(gz<0.4628)],c=gSFR[np.where(gz<0.4628)],s=100)
+    plt.scatter(grf_VJ[np.where(gz>0.5028)],grf_UV[np.where(gz>0.5028)],c=gSFR[np.where(gz>0.5028)],s=100)
     cbar = plt.colorbar()
     cbar.set_label("log(SFR)")
-    cbar.set_clim(-0.5,0.5)
+    #cbar.set_clim(-0.5,0.5)
     plt.xlabel('V-J')
     plt.ylabel('U-V')
     plt.title('Field UVJ')
@@ -142,8 +151,9 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.ylim(0,3)
 
     plt.subplot(3,2,3)
-    plt.hist2d(LDP_VJ-0.155, LDP_UV-0.306, bins=(150, 150), cmap=plt.cm.Greys)
-    plt.scatter(grf_VJ[np.where(np.logical_and(gz>0.4628,gz<0.5028))]-0.155,grf_UV[np.where(np.logical_and(gz>0.4628,gz<0.5028))]-0.306,c=gSFR[np.where(np.logical_and(gz>0.4628,gz<0.5028))],s=100)
+    #plt.hist2d(LDP_VJ, LDP_UV, bins=(150, 150), cmap=plt.cm.Greys)
+    plt.scatter(LDP_VJ, LDP_UV, color = 'grey', alpha = 0.3)
+    plt.scatter(grf_VJ[np.where(np.logical_and(gz>0.4628,gz<0.5028))],grf_UV[np.where(np.logical_and(gz>0.4628,gz<0.5028))],c=gSFR[np.where(np.logical_and(gz>0.4628,gz<0.5028))],s=100)
     cbar = plt.colorbar()
     cbar.set_label("log(SFR)")
     plt.xlabel('V-J')
@@ -204,9 +214,9 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
 
 def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.figure(figsize=(18, 16), dpi= 80, facecolor='w', edgecolor='k')
-    f = open('/data2/jrcooper/notebooks/reduction/EDisCS/Ha_catalogs/gaussian_prior/c-1138-gprior.txt', 'r')
-    lines = f.readlines()[1:]
-    f.close()
+    #f = open('/Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1138_c_sn.txt', 'r')
+   # lines = f.readlines()[1:]
+   # f.close()
 
         #create arrays 
     cf_Ha    = [] 
@@ -217,27 +227,27 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
   
     
     #pull array column 
-    for line in lines: 
-        a = line.split()
-        cf_Ha.append(float(a[4]))
-        crf_VJ.append(float(a[6]))
-        crf_UV.append(float(a[7]))
-        crf_m.append(float(a[8]))
-        cz.append(float(a[3]))
+   # for line in lines: 
+   #     a = line.split()
+       # cf_Ha.append(float(a[4]))
+      #  crf_VJ.append(float(a[7]))
+   #     crf_UV.append(float(a[6]))
+    #    crf_m.append(float(a[8]))
+     #   cz.append(float(a[3]))
         
-    cf_Ha = np.array(cf_Ha)
-    cf_Ha_log = np.log10(cf_Ha)
-    crf_VJ = np.array(crf_VJ)
-    crf_UV = np.array(crf_UV)
-    crf_m  = np.array(crf_m)
-    cz     = np.array(cz)
-    cD_l_mpc = np.array(cosmo.luminosity_distance(cz))
-    cD_l_cm = cD_l_mpc*3.08567758128E+24
-    clogLHa = np.log10(4*np.pi*cf_Ha*cD_l_cm**2)
-    cSFR = clogLHa - 41.27   
+    #cf_Ha = np.array(cf_Ha)
+    #cf_Ha_log = np.log10(cf_Ha)
+    #crf_VJ = np.array(crf_VJ)
+    #crf_UV = np.array(crf_UV)
+    #crf_m  = np.array(crf_m)
+    #cz     = np.array(cz)
+    #cD_l_mpc = np.array(cosmo.luminosity_distance(cz))
+    #cD_l_cm = cD_l_mpc*3.08567758128E+24
+    #clogLHa = np.log10(4*np.pi*cf_Ha*cD_l_cm**2)
+    #cSFR = clogLHa - 41.27   
 
 
-    f = open('/data2/jrcooper/notebooks/reduction/EDisCS/Ha_catalogs/gaussian_prior/g-1138-gprior.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1138_g_sn.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -253,15 +263,17 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     for line in lines: 
         a = line.split()
         gf_Ha.append(float(a[4]))
-        grf_VJ.append(float(a[6]))
-        grf_UV.append(float(a[7]))
+        grf_VJ.append(float(a[7]))
+        grf_UV.append(float(a[6]))
         grf_m.append(float(a[8]))
         gz.append(float(a[3]))
         
     gf_Ha = np.array(gf_Ha)
     gf_Ha_log = np.log10(gf_Ha)
     grf_VJ = np.array(grf_VJ)
+    grf_VJ = grf_VJ + 0.105
     grf_UV = np.array(grf_UV)
+    grf_UV = grf_UV + 0.014
     grf_m  = np.array(grf_m)
     gz     = np.array(gz)
     gD_l_mpc = np.array(cosmo.luminosity_distance(gz))
@@ -276,7 +288,7 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     y2 = [1.3,2]
     y3 = [2,5]
 
-    f = open('/data2/jrcooper/notebooks/reduction/EDisCS/Ha_catalogs/gaussian_prior/1138_LDP.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/WFI_catalogs/1138.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -288,19 +300,22 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     #pull array column 
     for line in lines: 
         a = line.split()
-        LDP_UV.append(float(a[3]))
-        LDP_VJ.append(float(a[2]))
+        LDP_UV.append(float(a[5]))
+        LDP_VJ.append(float(a[6]))
         
         
     LDP_UV = np.array(LDP_UV)
+    LDP_UV = LDP_UV + 0.014
     LDP_VJ = np.array(LDP_VJ)
+    LDP_VJ = LDP_VJ + 0.105
 
 
     plt.subplot(3,2,1)
-    plt.hist2d(LDP_VJ+0.105, LDP_UV+0.014, bins=(150, 150), cmap=plt.cm.Greys)
-    plt.scatter(crf_VJ[np.where(np.logical_and(cz<0.4996,cz>0.4596))]+0.105,crf_UV[np.where(np.logical_and(cz<0.4996,cz>0.4596))]+0.014,c=cSFR[np.where(np.logical_and(cz<0.4996,cz>0.4596))],s=100)
-    cbar = plt.colorbar()
-    cbar.set_label("log(SFR)")
+    #plt.hist2d(LDP_VJ, LDP_UV, bins=(150, 150), cmap=plt.cm.Greys)
+    plt.scatter(LDP_VJ, LDP_UV, color = 'grey', alpha = 0.3)
+    #plt.scatter(crf_VJ[np.where(np.logical_and(cz<0.4996,cz>0.4596))],crf_UV[np.where(np.logical_and(cz<0.4996,cz>0.4596))],c=cSFR[np.where(np.logical_and(cz<0.4996,cz>0.4596))],s=100)
+    #cbar = plt.colorbar()
+    #cbar.set_label("log(SFR)")
     plt.xlabel('V-J')
     plt.ylabel('U-V')
     plt.title('Cluster core UVJ z+/- 0.02')
@@ -311,14 +326,15 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.ylim(0,3)
     
     plt.subplot(3,2,2)
-    plt.hist2d(LDP_VJ+0.105, LDP_UV+0.014, bins=(150, 150), cmap=plt.cm.Greys)
+    #plt.hist2d(LDP_VJ+0.105, LDP_UV+0.014, bins=(150, 150), cmap=plt.cm.Greys)
+    plt.scatter(LDP_VJ, LDP_UV, color = 'grey', alpha = 0.3)
     #plt.scatter(rf_VJ[np.where(np.logical_and(z<0.4628,z>0.5028))],rf_UV[np.where(np.logical_and(z<0.4628,z>0.5028))],c=SFR[np.where(np.logical_and(z<0.4628,z>0.5028))])
-    plt.scatter(crf_VJ[np.where(cz<0.4596)]+0.105,crf_UV[np.where(cz<0.4596)]+0.014,c=cSFR[np.where(cz<0.4596)],s=100)
-    plt.scatter(crf_VJ[np.where(cz>0.4996)]+0.105,crf_UV[np.where(cz>0.4996)]+0.014,c=cSFR[np.where(cz>0.4996)],s=100)
-    plt.scatter(grf_VJ[np.where(gz<0.4596)]+0.105,grf_UV[np.where(gz<0.4596)]+0.014,c=gSFR[np.where(gz<0.4596)],s=100)
-    plt.scatter(grf_VJ[np.where(gz>0.4996)]+0.105,grf_UV[np.where(gz>0.4996)]+0.014,c=gSFR[np.where(gz>0.4996)],s=100)
+    #plt.scatter(crf_VJ[np.where(cz<0.4596)],crf_UV[np.where(cz<0.4596)],c=cSFR[np.where(cz<0.4596)],s=100)
+    #plt.scatter(crf_VJ[np.where(cz>0.4996)],crf_UV[np.where(cz>0.4996)],c=cSFR[np.where(cz>0.4996)],s=100)
+    plt.scatter(grf_VJ[np.where(gz<0.4596)],grf_UV[np.where(gz<0.4596)],c=gSFR[np.where(gz<0.4596)],s=100)
+    plt.scatter(grf_VJ[np.where(gz>0.4996)],grf_UV[np.where(gz>0.4996)],c=gSFR[np.where(gz>0.4996)],s=100)
     cbar = plt.colorbar()
-    cbar.set_clim(0.2,1)
+    #cbar.set_clim(0.2,1)
     cbar.set_label("log(SFR)")
     plt.xlabel('V-J')
     plt.ylabel('U-V')
@@ -330,8 +346,9 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.ylim(0,3)
     
     plt.subplot(3,2,3)
-    plt.hist2d(LDP_VJ+0.105, LDP_UV+0.014, bins=(150, 150), cmap=plt.cm.Greys)
-    plt.scatter(grf_VJ[np.where(np.logical_and(gz<0.4996,gz>0.4596))]+0.105,grf_UV[np.where(np.logical_and(gz<0.4996,gz>0.4596))]+0.014,c=gSFR[np.where(np.logical_and(gz<0.4996,gz>0.4596))],s=100)
+    #plt.hist2d(LDP_VJ, LDP_UV, bins=(150, 150), cmap=plt.cm.Greys)
+    plt.scatter(LDP_VJ, LDP_UV, color = 'grey', alpha = 0.3)
+    plt.scatter(grf_VJ[np.where(np.logical_and(gz<0.4996,gz>0.4596))],grf_UV[np.where(np.logical_and(gz<0.4996,gz>0.4596))],c=gSFR[np.where(np.logical_and(gz<0.4996,gz>0.4596))],s=100)
     cbar = plt.colorbar()
     cbar.set_label("log(SFR)")
     plt.xlabel('V-J')
@@ -346,10 +363,10 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
 
     
     plt.subplot(3,2,4)
-    plt.scatter(crf_m[np.where((cz>0.4596)&(cz<0.4996))],cSFR[np.where((cz>0.4596)&(cz<0.4996))],color='blue',alpha=0.7,marker = 'o',s=100)
+    #plt.scatter(crf_m[np.where((cz>0.4596)&(cz<0.4996))],cSFR[np.where((cz>0.4596)&(cz<0.4996))],color='blue',alpha=0.7,marker = 'o',s=100)
     plt.scatter(grf_m[np.where((gz>0.4596)&(gz<0.4996))],gSFR[np.where((gz>0.4596)&(gz<0.4996))],color='blue',alpha=0.5,marker = 'x',s=100)
-    plt.scatter(crf_m[np.where(cz<0.4596)],cSFR[np.where(cz<0.4596)],c='red',alpha=0.5,s=100)
-    plt.scatter(crf_m[np.where(cz>0.4996)],cSFR[np.where(cz>0.4996)],c='red',alpha=0.5,s=100)
+    #plt.scatter(crf_m[np.where(cz<0.4596)],cSFR[np.where(cz<0.4596)],c='red',alpha=0.5,s=100)
+   # plt.scatter(crf_m[np.where(cz>0.4996)],cSFR[np.where(cz>0.4996)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz<0.4596)],gSFR[np.where(gz<0.4596)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz>0.4996)],gSFR[np.where(gz>0.4996)],c='red',alpha=0.5,s=100) 
     plt.xlim(7.5,11)
@@ -533,7 +550,7 @@ def c1059(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
 
 def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.figure(figsize=(18, 16), dpi= 80, facecolor='w', edgecolor='k')
-    f = open('/data2/jrcooper/notebooks/reduction/EDisCS/Ha_catalogs/gaussian_prior/c-1227-gprior.txt', 'r')
+    f = open('//Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1227_c_sn.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -549,15 +566,17 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     for line in lines: 
         a = line.split()
         cf_Ha.append(float(a[4]))
-        crf_VJ.append(float(a[6]))
-        crf_UV.append(float(a[7]))
+        crf_VJ.append(float(a[7]))
+        crf_UV.append(float(a[6]))
         crf_m.append(float(a[8]))
         cz.append(float(a[3]))
         
     cf_Ha = np.array(cf_Ha)
     cf_Ha_log = np.log10(cf_Ha)
     crf_VJ = np.array(crf_VJ)
+    crf_VJ = crf_VJ - 0.195
     crf_UV = np.array(crf_UV)
+    crf_UV = crf_UV + 0.114
     crf_m  = np.array(crf_m)
     cz     = np.array(cz)
     cD_l_mpc = np.array(cosmo.luminosity_distance(cz))
@@ -566,7 +585,7 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     cSFR = clogLHa - 41.27   
 
 
-    f = open('/data2/jrcooper/notebooks/reduction/EDisCS/Ha_catalogs/gaussian_prior/g-1227-gprior.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1227_g_sn.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -582,15 +601,17 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     for line in lines: 
         a = line.split()
         gf_Ha.append(float(a[4]))
-        grf_VJ.append(float(a[6]))
-        grf_UV.append(float(a[7]))
+        grf_VJ.append(float(a[7]))
+        grf_UV.append(float(a[6]))
         grf_m.append(float(a[8]))
         gz.append(float(a[3]))
         
     gf_Ha = np.array(gf_Ha)
     gf_Ha_log = np.log10(gf_Ha)
     grf_VJ = np.array(grf_VJ)
+    grf_VJ = grf_VJ - 0.195
     grf_UV = np.array(grf_UV)
+    grf_UV = grf_UV + 0.114
     grf_m  = np.array(grf_m)
     gz     = np.array(gz)
     gD_l_mpc = np.array(cosmo.luminosity_distance(gz))
@@ -605,7 +626,7 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     y2 = [1.3,2]
     y3 = [2,5]
 
-    f = open('/data2/jrcooper/notebooks/reduction/EDisCS/Ha_catalogs/gaussian_prior/1227_LDP.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/WFI_catalogs/1227.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -617,16 +638,19 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     #pull array column 
     for line in lines: 
         a = line.split()
-        LDP_UV.append(float(a[3]))
-        LDP_VJ.append(float(a[2]))
+        LDP_UV.append(float(a[5]))
+        LDP_VJ.append(float(a[6]))
         
         
     LDP_UV = np.array(LDP_UV)
+    LDP_UV = LDP_UV + 0.114
     LDP_VJ = np.array(LDP_VJ)
+    LDP_VJ = LDP_VJ - 0.195
 
     plt.subplot(3,2,1)
-    plt.hist2d(LDP_VJ-0.195, LDP_UV+0.114, bins=(150, 150), cmap=plt.cm.Greys)
-    plt.scatter(crf_VJ[np.where(np.logical_and(cz<0.6557,cz>0.6157))]-0.195,crf_UV[np.where(np.logical_and(cz<0.6557,cz>0.6157))]+0.114,c=cSFR[np.where(np.logical_and(cz<0.6557,cz>0.6157))],s=100)
+    #plt.hist2d(LDP_VJ, LDP_UV, bins=(150, 150), cmap=plt.cm.Greys)
+    plt.scatter(LDP_VJ, LDP_UV, color = 'grey', alpha = 0.3)
+    plt.scatter(crf_VJ[np.where(np.logical_and(cz<0.6557,cz>0.6157))],crf_UV[np.where(np.logical_and(cz<0.6557,cz>0.6157))],c=cSFR[np.where(np.logical_and(cz<0.6557,cz>0.6157))],s=100)
     cbar = plt.colorbar()
     cbar.set_label("log(SFR)")
     plt.xlabel('V-J')
@@ -639,14 +663,15 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.ylim(0,3)
     
     plt.subplot(3,2,2)
-    plt.hist2d(LDP_VJ-0.195, LDP_UV+0.114, bins=(150, 150), cmap=plt.cm.Greys)
+    #plt.hist2d(LDP_VJ-0.195, LDP_UV+0.114, bins=(150, 150), cmap=plt.cm.Greys)
+    plt.scatter(LDP_VJ, LDP_UV, color = 'grey', alpha = 0.3)
     #plt.scatter(rf_VJ[np.where(np.logical_and(z<0.4628,z>0.5028))],rf_UV[np.where(np.logical_and(z<0.4628,z>0.5028))],c=SFR[np.where(np.logical_and(z<0.4628,z>0.5028))])
-    plt.scatter(crf_VJ[np.where(cz<0.6157)]-0.195,crf_UV[np.where(cz<0.6157)]+0.114,c=cSFR[np.where(cz<0.6157)],s=100)
-    plt.scatter(crf_VJ[np.where(cz>0.6557)]-0.195,crf_UV[np.where(cz>0.6557)]+0.114,c=cSFR[np.where(cz>0.6557)],s=100)
-    plt.scatter(grf_VJ[np.where(gz<0.6157)]-0.195,grf_UV[np.where(gz<0.6157)]+0.114,c=gSFR[np.where(gz<0.6157)],s=100)
-    plt.scatter(grf_VJ[np.where(gz>0.6557)]-0.195,grf_UV[np.where(gz>0.6557)]+0.114,c=gSFR[np.where(gz>0.6557)],s=100)
+    plt.scatter(crf_VJ[np.where(cz<0.6157)],crf_UV[np.where(cz<0.6157)],c=cSFR[np.where(cz<0.6157)],s=100)
+    plt.scatter(crf_VJ[np.where(cz>0.6557)],crf_UV[np.where(cz>0.6557)],c=cSFR[np.where(cz>0.6557)],s=100)
+    plt.scatter(grf_VJ[np.where(gz<0.6157)],grf_UV[np.where(gz<0.6157)],c=gSFR[np.where(gz<0.6157)],s=100)
+    plt.scatter(grf_VJ[np.where(gz>0.6557)],grf_UV[np.where(gz>0.6557)],c=gSFR[np.where(gz>0.6557)],s=100)
     cbar = plt.colorbar()
-    cbar.set_clim(0,1)
+    #cbar.set_clim(0,1)
     cbar.set_label("log(SFR)")
     plt.xlabel('V-J')
     plt.ylabel('U-V')
@@ -658,8 +683,9 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.ylim(0,3)
 
     plt.subplot(3,2,3)
-    plt.hist2d(LDP_VJ-0.195, LDP_UV+0.114, bins=(150, 150), cmap=plt.cm.Greys)
-    plt.scatter(grf_VJ[np.where(np.logical_and(gz<0.6557,gz>0.6157))]-0.195,grf_UV[np.where(np.logical_and(gz<0.6557,gz>0.6157))]+0.114,c=gSFR[np.where(np.logical_and(gz<0.6557,gz>0.6157))],s=100)
+    #plt.hist2d(LDP_VJ, LDP_UV, bins=(150, 150), cmap=plt.cm.Greys)
+    plt.scatter(LDP_VJ, LDP_UV, color = 'grey', alpha = 0.3)
+    plt.scatter(grf_VJ[np.where(np.logical_and(gz<0.6557,gz>0.6157))],grf_UV[np.where(np.logical_and(gz<0.6557,gz>0.6157))],c=gSFR[np.where(np.logical_and(gz<0.6557,gz>0.6157))],s=100)
     cbar = plt.colorbar()
     cbar.set_label("log(SFR)")
     plt.xlabel('V-J')
