@@ -123,7 +123,7 @@ HOME_PATH = os.getcwd()
 print('HOME_PATH = ', HOME_PATH)
 
 "CHANGE FILE DIRECTORY HERE"
-root = 'j113848m1134'
+root = 'j130132m1138'
 IS_PARALLEL = False # Set to True for parallel programs like WISPS
 
 if False:
@@ -531,7 +531,7 @@ else:
 
 
 ## USE THIS ONE
-h = open('/data2/jrcooper/notebooks/reduction/EDisCS/gprior/j113848m1134s.txt', 'r')
+h = open('/data2/jrcooper/notebooks/reduction/EDisCS/gprior/j130132m1138s.txt', 'r')
 lines = h.readlines()[1:]
 h.close()   
 z_LDP       = []  
