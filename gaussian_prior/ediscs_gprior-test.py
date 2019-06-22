@@ -13,7 +13,7 @@ import matplotlib.lines as mlines
 
 def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.figure(figsize=(18, 16), dpi= 80, facecolor='w', edgecolor='k')
-    f = open('/Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1301_c_sn.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/23.3_mag/Ha_catalogs/1301_c.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -48,7 +48,7 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     cSFR = clogLHa - 41.27   
 
 
-    f = open('/Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1301_g_sn.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/23.3_mag/Ha_catalogs/1301_g.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -89,7 +89,7 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     y2 = [1.3,2]
     y3 = [2,5]
 
-    f = open('/Users/jennifercooper/Projects/thesis/WFI_catalogs/1301.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/22.9_mag/1301_q_b.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -101,8 +101,8 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     #pull array column 
     for line in lines: 
         a = line.split()
-        LDP_UV.append(float(a[5]))
-        LDP_VJ.append(float(a[6]))
+        LDP_UV.append(float(a[4]))
+        LDP_VJ.append(float(a[3]))
         
         
     LDP_UV = np.array(LDP_UV)
@@ -173,7 +173,9 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.scatter(crf_m[np.where(cz>0.5028)],cSFR[np.where(cz>0.5028)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz<0.4628)],gSFR[np.where(gz<0.4628)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz>0.5028)],gSFR[np.where(gz>0.5028)],c='red',alpha=0.5,s=100) 
-    plt.xlim(6.8,11)
+    plt.xlim(7,11)
+    plt.ylim(-2.5,3)
+
     #plt.ylim(-1,3)
     plt.xlabel('logM')
     plt.ylabel('logSFR')
@@ -214,9 +216,9 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
 
 def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.figure(figsize=(18, 16), dpi= 80, facecolor='w', edgecolor='k')
-    #f = open('/Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1138_c_sn.txt', 'r')
-   # lines = f.readlines()[1:]
-   # f.close()
+    f = open('/Users/jennifercooper/Projects/thesis/23.3_mag/Ha_catalogs/1138_c.txt', 'r')
+    lines = f.readlines()[1:]
+    f.close()
 
         #create arrays 
     cf_Ha    = [] 
@@ -227,27 +229,27 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
   
     
     #pull array column 
-   # for line in lines: 
-   #     a = line.split()
-       # cf_Ha.append(float(a[4]))
-      #  crf_VJ.append(float(a[7]))
-   #     crf_UV.append(float(a[6]))
-    #    crf_m.append(float(a[8]))
-     #   cz.append(float(a[3]))
+    for line in lines: 
+        a = line.split()
+        cf_Ha.append(float(a[4]))
+        crf_VJ.append(float(a[7]))
+        crf_UV.append(float(a[6]))
+        crf_m.append(float(a[8]))
+        cz.append(float(a[3]))
         
-    #cf_Ha = np.array(cf_Ha)
-    #cf_Ha_log = np.log10(cf_Ha)
-    #crf_VJ = np.array(crf_VJ)
-    #crf_UV = np.array(crf_UV)
-    #crf_m  = np.array(crf_m)
-    #cz     = np.array(cz)
-    #cD_l_mpc = np.array(cosmo.luminosity_distance(cz))
-    #cD_l_cm = cD_l_mpc*3.08567758128E+24
-    #clogLHa = np.log10(4*np.pi*cf_Ha*cD_l_cm**2)
-    #cSFR = clogLHa - 41.27   
+    cf_Ha = np.array(cf_Ha)
+    cf_Ha_log = np.log10(cf_Ha)
+    crf_VJ = np.array(crf_VJ)
+    crf_UV = np.array(crf_UV)
+    crf_m  = np.array(crf_m)
+    cz     = np.array(cz)
+    cD_l_mpc = np.array(cosmo.luminosity_distance(cz))
+    cD_l_cm = cD_l_mpc*3.08567758128E+24
+    clogLHa = np.log10(4*np.pi*cf_Ha*cD_l_cm**2)
+    cSFR = clogLHa - 41.27   
 
 
-    f = open('/Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1138_g_sn.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/23.3_mag/Ha_catalogs/1138_g.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -288,7 +290,7 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     y2 = [1.3,2]
     y3 = [2,5]
 
-    f = open('/Users/jennifercooper/Projects/thesis/WFI_catalogs/1138.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/22.9_mag/1138_q_b.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -300,8 +302,8 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     #pull array column 
     for line in lines: 
         a = line.split()
-        LDP_UV.append(float(a[5]))
-        LDP_VJ.append(float(a[6]))
+        LDP_UV.append(float(a[4]))
+        LDP_VJ.append(float(a[3]))
         
         
     LDP_UV = np.array(LDP_UV)
@@ -314,8 +316,9 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     #plt.hist2d(LDP_VJ, LDP_UV, bins=(150, 150), cmap=plt.cm.Greys)
     plt.scatter(LDP_VJ, LDP_UV, color = 'grey', alpha = 0.3)
     #plt.scatter(crf_VJ[np.where(np.logical_and(cz<0.4996,cz>0.4596))],crf_UV[np.where(np.logical_and(cz<0.4996,cz>0.4596))],c=cSFR[np.where(np.logical_and(cz<0.4996,cz>0.4596))],s=100)
-    #cbar = plt.colorbar()
-    #cbar.set_label("log(SFR)")
+    plt.scatter(crf_VJ, crf_UV, c=cSFR,s=100)
+    cbar = plt.colorbar()
+    cbar.set_label("log(SFR)")
     plt.xlabel('V-J')
     plt.ylabel('U-V')
     plt.title('Cluster core UVJ z+/- 0.02')
@@ -363,13 +366,15 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
 
     
     plt.subplot(3,2,4)
-    #plt.scatter(crf_m[np.where((cz>0.4596)&(cz<0.4996))],cSFR[np.where((cz>0.4596)&(cz<0.4996))],color='blue',alpha=0.7,marker = 'o',s=100)
+    plt.scatter(crf_m[np.where((cz>0.4596)&(cz<0.4996))],cSFR[np.where((cz>0.4596)&(cz<0.4996))],color='blue',alpha=0.7,marker = 'o',s=100)
     plt.scatter(grf_m[np.where((gz>0.4596)&(gz<0.4996))],gSFR[np.where((gz>0.4596)&(gz<0.4996))],color='blue',alpha=0.5,marker = 'x',s=100)
     #plt.scatter(crf_m[np.where(cz<0.4596)],cSFR[np.where(cz<0.4596)],c='red',alpha=0.5,s=100)
    # plt.scatter(crf_m[np.where(cz>0.4996)],cSFR[np.where(cz>0.4996)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz<0.4596)],gSFR[np.where(gz<0.4596)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz>0.4996)],gSFR[np.where(gz>0.4996)],c='red',alpha=0.5,s=100) 
     plt.xlim(7.5,11)
+    plt.ylim(-2.5,3)
+
     #plt.ylim(-1,3)
     plt.xlabel('logM')
     plt.ylabel('logSFR')
@@ -536,6 +541,8 @@ def c1059(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.scatter(grf_m[np.where(gz<0.4364)],gSFR[np.where(gz<0.4364)],c='red',alpha=0.5)
     plt.scatter(grf_m[np.where(gz>0.4764)],gSFR[np.where(gz>0.4764)],c='red',alpha=0.5)  
     plt.xlim(7.5,11.5)
+    plt.ylim(-2,3)
+
     #plt.ylim(-1,3)
     plt.xlabel('logM')
     plt.ylabel('logSFR')
@@ -550,7 +557,7 @@ def c1059(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
 
 def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.figure(figsize=(18, 16), dpi= 80, facecolor='w', edgecolor='k')
-    f = open('//Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1227_c_sn.txt', 'r')
+    f = open('//Users/jennifercooper/Projects/thesis/23.3_mag/Ha_catalogs/1227_c.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -585,7 +592,7 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     cSFR = clogLHa - 41.27   
 
 
-    f = open('/Users/jennifercooper/Projects/thesis/gprior/Ha_catalogs/1227_g_sn.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/23.3_mag/Ha_catalogs/1227_g.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -626,7 +633,7 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     y2 = [1.3,2]
     y3 = [2,5]
 
-    f = open('/Users/jennifercooper/Projects/thesis/WFI_catalogs/1227.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/22.9_mag/1227_q_b.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
     
@@ -638,8 +645,8 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     #pull array column 
     for line in lines: 
         a = line.split()
-        LDP_UV.append(float(a[5]))
-        LDP_VJ.append(float(a[6]))
+        LDP_UV.append(float(a[4]))
+        LDP_VJ.append(float(a[3]))
         
         
     LDP_UV = np.array(LDP_UV)
@@ -705,7 +712,7 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.scatter(grf_m[np.where(gz<0.6157)],gSFR[np.where(gz<0.6157)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz>0.6557)],gSFR[np.where(gz>0.6557)],c='red',alpha=0.5,s=100)   
     plt.xlim(7.5,11)
-    #plt.ylim(-1,3)
+    plt.ylim(-2.5,3)
     plt.xlabel('logM')
     plt.ylabel('logSFR')
     #plt.title('All pointings matched with LPD Halpha>0')
