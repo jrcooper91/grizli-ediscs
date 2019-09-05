@@ -7,6 +7,7 @@ from astropy.cosmology import WMAP9 as cosmo
 import math as mt
 import os, sys
 import matplotlib.lines as mlines
+from numpy import sign, abs, log10
 
 
 
@@ -164,6 +165,13 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.plot(x3,y3,color='black')
     plt.xlim(-0.5,3)
     plt.ylim(0,3)
+
+    z_clsr = 0.4828
+    M_stt = [8.,8.5,9.,9.5,10.,10.5,11]
+    M_st = np.array(M_stt) - 7.9
+    a_z = 0.70 - 0.13*z_clsr
+    b_z = 0.38 + 1.14*z_clsr - 0.19*(z_clsr**2)
+    y_SFR = a_z*np.log10(M_st) + b_z
    
     
     plt.subplot(3,2,4)
@@ -173,6 +181,7 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.scatter(crf_m[np.where(cz>0.5028)],cSFR[np.where(cz>0.5028)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz<0.4628)],gSFR[np.where(gz<0.4628)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz>0.5028)],gSFR[np.where(gz>0.5028)],c='red',alpha=0.5,s=100) 
+    plt.plot(M_stt,y_SFR,c='black')
     plt.xlim(7,11)
     plt.ylim(-2.5,3)
 
@@ -216,7 +225,7 @@ def c1301(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
 
 def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.figure(figsize=(18, 16), dpi= 80, facecolor='w', edgecolor='k')
-    f = open('/Users/jennifercooper/Projects/thesis/23.3_mag/Ha_catalogs/1138_c.txt', 'r')
+    f = open('/Users/jennifercooper/Projects/thesis/23.3_mag/Ha_catalogs/1138.0_ha.txt', 'r')
     lines = f.readlines()[1:]
     f.close()
 
@@ -250,7 +259,7 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
 
 
     f = open('/Users/jennifercooper/Projects/thesis/23.3_mag/Ha_catalogs/1138_g.txt', 'r')
-    lines = f.readlines()[1:]
+    lines = f.readlines()[3:]
     f.close()
     
     #create arrays 
@@ -364,6 +373,12 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.ylim(0,3)
     
 
+    z_clsr = 0.4796
+    M_stt = [8.,8.5,9.,9.5,10.,10.5,11]
+    M_st = np.array(M_stt) - 7.9
+    a_z = 0.70 - 0.13*z_clsr
+    b_z = 0.38 + 1.14*z_clsr - 0.19*(z_clsr**2)
+    y_SFR = a_z*np.log10(M_st) + b_z
     
     plt.subplot(3,2,4)
     plt.scatter(crf_m[np.where((cz>0.4596)&(cz<0.4996))],cSFR[np.where((cz>0.4596)&(cz<0.4996))],color='blue',alpha=0.7,marker = 'o',s=100)
@@ -372,6 +387,7 @@ def c1138(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
    # plt.scatter(crf_m[np.where(cz>0.4996)],cSFR[np.where(cz>0.4996)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz<0.4596)],gSFR[np.where(gz<0.4596)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz>0.4996)],gSFR[np.where(gz>0.4996)],c='red',alpha=0.5,s=100) 
+    plt.plot(M_stt,y_SFR,c='black')
     plt.xlim(7.5,11)
     plt.ylim(-2.5,3)
 
@@ -704,6 +720,13 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.xlim(-0.5,3)
     plt.ylim(0,3)
 
+    z_clsr = 0.6357
+    M_stt = [8.,8.5,9.,9.5,10.,10.5,11]
+    M_st = np.array(M_stt) - 7.9
+    a_z = 0.70 - 0.13*z_clsr
+    b_z = 0.38 + 1.14*z_clsr - 0.19*(z_clsr**2)
+    y_SFR = a_z*np.log10(M_st) + b_z
+
     plt.subplot(3,2,4)
     plt.scatter(crf_m[np.where((cz>0.6157)&(cz<0.6557))],cSFR[np.where((cz>0.6157)&(cz<0.6557))],color='blue',alpha=0.7,marker = 'o',s=100)
     plt.scatter(grf_m[np.where((gz>0.6157)&(gz<0.6557))],gSFR[np.where((gz>0.6157)&(gz<0.6557))],color='blue',alpha=0.5,marker = 'x',s=100)
@@ -711,6 +734,7 @@ def c1227(cf_Ha,gf_Ha,crf_VJ,crf_UV,crf_m,cz):
     plt.scatter(crf_m[np.where(cz>0.6557)],cSFR[np.where(cz>0.6557)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz<0.6157)],gSFR[np.where(gz<0.6157)],c='red',alpha=0.5,s=100)
     plt.scatter(grf_m[np.where(gz>0.6557)],gSFR[np.where(gz>0.6557)],c='red',alpha=0.5,s=100)   
+    plt.plot(M_stt,y_SFR,c='black')
     plt.xlim(7.5,11)
     plt.ylim(-2.5,3)
     plt.xlabel('logM')
